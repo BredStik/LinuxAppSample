@@ -17,6 +17,7 @@ parameters:
 pool:
     name: 'VMSS Linux'
 
+stages:
 - stage: deploy_apps_to_qa
   displayName: '[QA] Deploy Webhost'
   jobs:
