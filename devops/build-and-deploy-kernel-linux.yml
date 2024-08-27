@@ -33,6 +33,6 @@ stages:
                   webAppName: ${{ parameters.webAppName }}
                   resourceGroupName: ${{ parameters.resourceGroupName }}
                   serviceConnectionName: ${{ parameters.serviceConnectionName }}
-                  dockerNamespace: 'https://ghcr.io/bredstik/'
-                  dockerRepository: 'linuxappsample'
+                  dockerNamespace: 'ghcr.io'
+                  dockerRepository: 'bredstik/linuxappsample'
                   dockerImageTag: ${{ parameters.imageTag }}
