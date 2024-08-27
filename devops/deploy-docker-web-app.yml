@@ -1,0 +1,25 @@
+parameters:
+  - name: webAppName
+    type: string
+  - name: resourceGroupName
+    type: string
+  - name: serviceConnectionName
+    type: string
+  - name: dockerNamespace
+    type: string
+  - name: dockerRepository
+    type: string
+  - name: dockerImageTag
+    type: string
+
+steps:
+  - task: AzureRmWebAppDeployment@4
+    displayName: 'Deploy Docker Web App ${{ parameters.webAppName }}'
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnectionName }}
+      ResourceGroupName: ${{ parameters.resourceGroupName }}
+      appType: 'webAppContainer'
+      WebAppName: ${{ parameters.webAppName }}
+      DockerNamespace: ${{ parameters.dockerNamespace }}
+      DockerRepository: ${{ parameters.dockerRepository }}
+      DockerImageTag: ${{ parameters.dockerImageTag }}

@@ -1,0 +1,39 @@
+trigger: none
+
+parameters:
+  - name: serviceConnectionName
+    type: string
+    default: ''
+  - name: webAppName
+    type: string
+    default: ''
+  - name: resourceGroupName
+    type: string
+    default: ''
+  - name: imageTag
+    type: string
+    default: '2f607a088e47b375a4e7bfafb1b0cd6605d14bee'
+
+pool:
+    name: 'VMSS Linux'
+
+- stage: deploy_apps_to_qa
+  dependsOn:
+    - build
+  displayName: '[QA] Deploy Webhost'
+  jobs:
+    - deployment: deploy_kernel_to_qa
+      displayName: '[QA] Deploy Webhost'
+      environment: 'QA'      
+      strategy:
+        runOnce:
+          deploy:
+            steps:              
+              - template: deploy-docker-web-app.yml
+                parameters:
+                  webAppName: ${{ parameters.webAppName }}
+                  resourceGroupName: ${{ parameters.resourceGroupName }}
+                  serviceConnectionName: ${{ parameters.serviceConnectionName }}
+                  dockerNamespace: 'https://ghcr.io/bredstik/'
+                  dockerRepository: 'linuxappsample'
+                  dockerImageTag: ${{ parameters.imageTag }}
