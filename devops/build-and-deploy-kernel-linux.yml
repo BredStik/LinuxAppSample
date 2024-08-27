@@ -18,8 +18,6 @@ pool:
     name: 'VMSS Linux'
 
 - stage: deploy_apps_to_qa
-  dependsOn:
-    - build
   displayName: '[QA] Deploy Webhost'
   jobs:
     - deployment: deploy_kernel_to_qa
