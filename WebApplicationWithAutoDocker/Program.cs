@@ -45,8 +45,8 @@ app.MapGet("/ping", async (HttpContext context,  VersionProvider vp, IConfigurat
         serverDictionary = page.Values.GroupBy(x => x.PartitionKey).ToDictionary(x => Guid.Parse(x.Key), x => DateTimeOffset.Parse(x.Max(e => e.RowKey)));
         break;
     }
-
-    return new { ServerId = vp.GetVersion().Id, LatestByServer = serverDictionary};
+    
+    return new { ServerId = vp.GetVersion().Id, LatestByServer = serverDictionary.OrderByDescending(x => x.Value) };
 });
 
 app.MapGet("/pingLive", (HttpContext context,  VersionProvider vp, IConfiguration configuration, CancellationToken ct) =>
