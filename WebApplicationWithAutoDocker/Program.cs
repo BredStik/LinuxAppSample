@@ -46,7 +46,7 @@ app.MapGet("/ping", async (HttpContext context,  VersionProvider vp, IConfigurat
         break;
     }
     
-    return new { ServerId = vp.GetVersion().Id, LatestByServer = serverDictionary.OrderByDescending(x => x.Value) };
+    return new { ServerId = vp.GetVersion().Id, LatestByServer = serverDictionary.OrderByDescending(x => x.Value).ToDictionary() };
 });
 
 app.MapGet("/pingLive", (HttpContext context,  VersionProvider vp, IConfiguration configuration, CancellationToken ct) =>
